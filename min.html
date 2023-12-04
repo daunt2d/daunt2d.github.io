@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>PROVIDED BY TLOCHSTA (tlochsta.cloud)</h1>
+<p>Potent: miniscule version
+provided completely by Tlochsta(tlochsta.cloud, tlochsta.dev)
+
+</p>
+<select id="gameSelector"></select><br>
+<iframe id="gameFrame"></iframe>
+<script src="https://cdn.jsdelivr.net/npm/thegameapi@1.0.4/static/the-game-api.js"></script>
+<script>
+const api = new TheGameAPI();
+const gameData = api.gameJSON();
+const games = JSON.parse(gameData);
+const gameSelector = document.getElementById('gameSelector');
+const gameFrame = document.getElementById('gameFrame');
+games.forEach(game => {
+    const option = document.createElement('option');
+    option.value = game.gameId;
+    option.text = game.title;
+    gameSelector.appendChild(option);
+});
+gameSelector.addEventListener("change", function() {
+    gameFrame.src = api.getGameUrl(gameSelector.value);
+});
+</script>
+</body>
+</html>
